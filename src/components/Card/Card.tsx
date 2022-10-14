@@ -1,5 +1,7 @@
 import { FC } from "react";
-import { Link } from "react-router-dom";
+import { Block, Flex, Link, Text, useTheme } from "vcc-ui";
+
+import StdLink from "../StdLink/StdLink";
 
 // TYPES
 import { CardItem } from "../../types";
@@ -9,25 +11,71 @@ type CardProps = {
 };
 
 const Card: FC<CardProps> = ({ data }) => {
+  const theme = useTheme();
+  const { typeScale } = useTheme();
+  const { amundsen } = typeScale; // Contains "standard", "inline-link" and "emphasis"
   const altDesc = `Image of ${data.modelName} ${data.modelType} ${data.bodyType}`;
+
   return (
-    <div className="card">
-      <div className="card__top">
-        <p className="card__body-type">{data.bodyType}</p>
-        <div className="card__model-info">
-          <p className="card__model-name">{data.modelName}</p>
-          <p className="card__model-type">{data.modelType}</p>
-        </div>
-      </div>
+    <Block>
+      <Block extend={{ marginBottom: "1.438rem" }}>
+        <Text
+          variant="amundsen"
+          as={amundsen.standard.element}
+          extend={{
+            ...amundsen.standard.styles,
+            fontSize: "2rem",
+            color: theme.color.foreground.secondary,
+            textTransform: "uppercase",
+            fontWeight: 500,
+          }}
+        >
+          {data.bodyType}
+        </Text>
+        <Flex extend={{ flexDirection: "row", alignItems: "center" }}>
+          <Text
+            variant="amundsen"
+            as={amundsen.standard.element}
+            extend={{
+              ...amundsen.standard.styles,
+              fontSize: "2rem",
+              color: theme.color.foreground.primary,
+            }}
+          >
+            {data.modelName}
+          </Text>
+          <Text
+            variant="amundsen"
+            as={amundsen.standard.element}
+            extend={{
+              ...amundsen.standard.styles,
+              fontSize: "2rem",
+              color: theme.color.foreground.secondary,
+            }}
+          >
+            {data.modelType}
+          </Text>
+        </Flex>
+      </Block>
 
-      <div className="card__image-wrap">
-        <img src={data.imageUrl} alt={altDesc} />
-      </div>
+      <Block extend={{ marginBottom: "0.938rem" }}>
+        <img src={data.imageUrl} alt={altDesc} style={{ maxWidth: "100%" }} />
+      </Block>
 
-      <div className="card__links">
-        <Link className="card__link-item" to={`/learn/`}></Link>
-      </div>
-    </div>
+      <Flex extend={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
+        <StdLink internal>
+          <Link href={`/learn/${data.id}`} arrow="right" style={{ marginRight: "24px", fontSize: "1rem" }}>
+            Learn
+          </Link>
+        </StdLink>
+
+        <StdLink internal>
+          <Link href={`/shop/${data.id}`} arrow="right" style={{ fontSize: "1rem" }}>
+            Shop
+          </Link>
+        </StdLink>
+      </Flex>
+    </Block>
   );
 };
 
