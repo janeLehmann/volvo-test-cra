@@ -29,19 +29,14 @@ const List: FC<ListProps> = ({ cars }) => {
     <Block ref={ref} extend={LIST_STYLES}>
       <Swiper
         modules={[A11y]}
-        spaceBetween={28}
-        slidesPerView={4}
+        spaceBetween={15}
+        slidesPerView={1.5}
         breakpoints={{
-          320: {
-            spaceBetween: 15,
-            slidesPerView: 1.5,
-          },
-          600: {
+          800: {
             slidesPerView: 2.5,
           },
           1024: {
             slidesPerView: 3,
-            spaceBetween: 26,
           },
           1440: {
             slidesPerView: 4,
