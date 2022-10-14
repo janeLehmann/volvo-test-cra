@@ -1,13 +1,11 @@
 import { FC } from "react";
-import { Logo, View } from "vcc-ui";
-
-import "./Header.scss";
+import { Logo, Block } from "vcc-ui";
 
 const Header: FC = () => {
   return (
-    <View direction="row" justifyContent="space-between">
+    <Block extend={{ padding: "2.5rem 3.75rem 1.25rem", marginBottom: "3.125rem" }}>
       <Logo type="spreadmark" height={20} />
-    </View>
+    </Block>
   );
 };
 
