@@ -7,3 +7,5 @@ export type CardItem = {
   modelType: string;
   imageUrl: string;
 };
+
+export type CarsStatus = "LOADING" | "SUCCESS" | "FAIL";

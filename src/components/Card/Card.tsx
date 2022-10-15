@@ -17,7 +17,7 @@ type CardProps = {
 const Card: FC<CardProps> = ({ data }) => {
   const theme = useTheme();
   const { typeScale } = useTheme();
-  const { amundsen } = typeScale; // Contains "standard", "inline-link" and "emphasis"
+  const { amundsen } = typeScale;
   const altDesc = `Image of ${data.modelName} ${data.modelType} ${data.bodyType}`;
 
   return (
@@ -28,7 +28,7 @@ const Card: FC<CardProps> = ({ data }) => {
           as={amundsen.standard.element}
           extend={{
             ...amundsen.standard.styles,
-            fontSize: "2rem",
+            fontSize: "1rem",
             color: theme.color.foreground.secondary,
             textTransform: "uppercase",
             fontWeight: 500,
