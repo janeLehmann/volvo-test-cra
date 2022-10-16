@@ -5,10 +5,11 @@ import { Block, Flex, Link, Text, useTheme } from "vcc-ui";
 import StdLink from "../StdLink/StdLink";
 
 // STYLE CONFIGS
-import { IMAGE_CONTAINER_STYLES, IMAGE_STYLES, LINKS_CONTAINER_STYLES, TOP_TEXT_CONTAINER_STYLES } from "./config";
+import { IMAGE_CONTAINER_STYLES, IMAGE_STYLES, TOP_TEXT_CONTAINER_STYLES } from "./config";
 
 // TYPES
 import { CardItem } from "../../types";
+import { ROW_FLEX_STYLES } from "../../styleConfig";
 
 type CardProps = {
   data: CardItem;
@@ -76,7 +77,7 @@ const Card: FC<CardProps> = ({ data }) => {
         <img src={data.imageUrl} alt={altDesc} style={IMAGE_STYLES} />
       </Block>
 
-      <Flex extend={LINKS_CONTAINER_STYLES}>
+      <Flex extend={ROW_FLEX_STYLES}>
         <StdLink internal>
           <Link href={`/learn/${data.id}`} arrow="right" style={{ marginRight: "24px", fontSize: "1rem" }}>
             Learn

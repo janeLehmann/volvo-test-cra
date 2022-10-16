@@ -8,4 +8,4 @@ export type CardItem = {
   imageUrl: string;
 };
 
-export type CarsStatus = "LOADING" | "SUCCESS" | "FAIL";
+export type CarsRequestStatus = "LOADING" | "SUCCESS" | "FAIL";
