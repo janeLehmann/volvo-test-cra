@@ -1,5 +1,7 @@
+import InnerPage from "../../components/InnerPage/InnerPage";
+
 const Shop = () => {
-  return <div>Shop page</div>;
+  return <InnerPage type="SHOP" />;
 };
 
 export default Shop;
