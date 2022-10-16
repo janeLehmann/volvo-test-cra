@@ -1,6 +1,7 @@
 import { FC, useState } from "react";
 import { A11y, Virtual } from "swiper";
 import { Block, Flex } from "vcc-ui";
+import { useSelector } from "react-redux";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useResizeObserver } from "@volvo-cars/react-layout-utils";
 
@@ -16,20 +17,20 @@ import { LIST_NAV_STYLES, LIST_PAGINATION_STYLES, LIST_STYLES } from "./config";
 import { isNavVisible } from "./helpers";
 
 // TYPES
-import { CardItem } from "../../types";
 import { Swiper as SwiperClass } from "swiper/types";
+
+// STORE
+import { RootState } from "../../store";
 
 // STYLES
 import "swiper/css";
 
-type ListProps = {
-  cars: CardItem[];
-};
-
-const List: FC<ListProps> = ({ cars }) => {
+const List: FC = () => {
   const { ref, width } = useResizeObserver({ box: "border-box" });
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isReachedEnd, setIsReachedEnd] = useState(false);
+  const { cars } = useSelector((state: RootState) => state.main);
+
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [isReachedEnd, setIsReachedEnd] = useState<boolean>(false);
 
   const updateSliderDataForNavigation = (swiper: SwiperClass) => {
     setCurrentIndex(swiper.activeIndex);

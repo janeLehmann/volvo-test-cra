@@ -1,5 +1,6 @@
-import { FC, useMemo, useState } from "react";
+import { FC, useEffect } from "react";
 import { Flex, Spinner, useTheme, View } from "vcc-ui";
+import { useSelector } from "react-redux";
 
 // COMPONENTS
 import Header from "../../components/Header/Header";
@@ -7,21 +8,20 @@ import List from "../../components/List/List";
 import Filter from "../../components/Filter/Filter";
 
 // TYPES
-import useCarsData from "../../hooks/useCarsData";
+import { RootState } from "../../store";
+
+// API
+import { getCars } from "../../api/server";
 
 const Main: FC = () => {
   const theme = useTheme();
   const { typeScale } = useTheme();
   const { amundsen } = typeScale;
-  const [carsStatus, cars, initialFilters] = useCarsData();
-  const [filters, setFilters] = useState<string[]>([]);
+  const { carsRequestStatus } = useSelector((state: RootState) => state.main);
 
-  const filteredCars = useMemo(() => {
-    if (filters.length === initialFilters.length || !filters.length) {
-      return cars;
-    }
-    return cars.filter(item => filters.includes(item.bodyType));
-  }, [cars, filters, initialFilters]);
+  useEffect(() => {
+    getCars();
+  }, []);
 
   return (
     <View
@@ -33,18 +33,18 @@ const Main: FC = () => {
       minHeight="100vh"
     >
       <Header />
-      {carsStatus === "LOADING" && (
+      {carsRequestStatus === "LOADING" && (
         <Flex extend={{ height: "50vh", alignItems: "center", justifyContent: "center" }}>
           <Spinner size={48} />
         </Flex>
       )}
-      {carsStatus === "SUCCESS" && (
+      {carsRequestStatus === "SUCCESS" && (
         <>
-          <Filter filters={filters} initialFilters={initialFilters} setFilters={setFilters} />
-          <List cars={filteredCars} />
+          <Filter />
+          <List />
         </>
       )}
-      {carsStatus === "FAIL" && <p>Error</p>}
+      {carsRequestStatus === "FAIL" && <p>Error</p>}
     </View>
   );
 };

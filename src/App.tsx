@@ -1,9 +1,14 @@
 import { StyleProvider, ThemePicker } from "vcc-ui";
+import { useSelector } from "react-redux";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
+// COMPONENTS
 import Main from "./pages/Main/Main";
 import Learn from "./pages/Learn/Learn";
 import Shop from "./pages/Shop/Shop";
+
+// STORE
+import { RootState } from "./store";
 
 import "./style/index.scss";
 
@@ -24,9 +29,11 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
+  const themeType = useSelector((state: RootState) => state.main.themeType);
+
   return (
     <StyleProvider>
-      <ThemePicker variant="light">
+      <ThemePicker variant={themeType}>
         <RouterProvider router={router} />
       </ThemePicker>
     </StyleProvider>

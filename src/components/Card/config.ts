@@ -28,5 +28,3 @@ export const IMAGE_STYLES = {
   left: 0,
   right: 0,
 } as const;
-
-export const LINKS_CONTAINER_STYLES = { flexDirection: "row", alignItems: "center", justifyContent: "center" } as const;

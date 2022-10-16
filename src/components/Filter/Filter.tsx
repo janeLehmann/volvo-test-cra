@@ -1,24 +1,23 @@
 import { FC } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Block, Checkbox, Flex, useTheme, Click } from "vcc-ui";
+
+// CONFIG
 import { CHECKBOX_LIST_STYLES, FILTER_CONTAINER_STYLES } from "./config";
 
-type FilterProps = {
-  filters: string[];
-  initialFilters: string[];
-  setFilters: (filters: string[]) => void;
-};
+// STORE
+import { setFilters } from "../../state/mainSlice";
+import { RootState } from "../../store";
 
-const Filter: FC<FilterProps> = ({ initialFilters, filters, setFilters }) => {
+const Filter: FC = () => {
+  const dispatch = useDispatch();
+  const { filters, initialFilters } = useSelector((state: RootState) => state.main);
   const theme = useTheme();
   const { typeScale } = useTheme();
   const { amundsen } = typeScale;
 
-  const onChangeFilters = (name: string, value: boolean) => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    setFilters((prevState: string[]) => {
-      return !value ? prevState.filter(item => item !== name) : [...prevState, name];
-    });
+  const onChangeFilters = (name: string, value: boolean): void => {
+    dispatch(setFilters(!value ? filters.filter(item => item !== name) : [...filters, name]));
   };
 
   return (
@@ -36,9 +35,6 @@ const Filter: FC<FilterProps> = ({ initialFilters, filters, setFilters }) => {
                     textTransform: "uppercase",
                     fontWeight: 500,
                     marginRight: 15,
-                    "@media (max-width: 480px)": {
-                      fontSize: "1rem",
-                    },
                   }}
                 >
                   {item}
@@ -51,7 +47,7 @@ const Filter: FC<FilterProps> = ({ initialFilters, filters, setFilters }) => {
         ))}
       </Flex>
 
-      <Click onClick={() => setFilters([])}>Reset filters</Click>
+      <Click onClick={() => dispatch(setFilters([]))}>Reset filters</Click>
     </Flex>
   );
 };
