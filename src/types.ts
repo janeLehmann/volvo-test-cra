@@ -9,3 +9,4 @@ export type CardItem = {
 };
 
 export type CarsRequestStatus = "LOADING" | "SUCCESS" | "FAIL";
+export type InnerPageType = "LEARN" | "SHOP";
