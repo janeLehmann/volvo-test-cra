@@ -44,14 +44,14 @@ const Filter: FC<FilterProps> = ({ initialFilters, filters, setFilters }) => {
                   {item}
                 </Block>
               }
-              checked={filters.includes(item)}
+              checked={filters.length > 0 && filters.includes(item)}
               onChange={e => onChangeFilters(item, e.target.checked)}
             />
           </Block>
         ))}
       </Flex>
 
-      <Click onClick={() => setFilters(initialFilters)}>Reset filters</Click>
+      <Click onClick={() => setFilters([])}>Reset filters</Click>
     </Flex>
   );
 };

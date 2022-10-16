@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo, useState } from "react";
+import { FC, useMemo, useState } from "react";
 import { Flex, Spinner, useTheme, View } from "vcc-ui";
 
 // COMPONENTS
@@ -16,13 +16,12 @@ const Main: FC = () => {
   const [carsStatus, cars, initialFilters] = useCarsData();
   const [filters, setFilters] = useState<string[]>([]);
 
-  useEffect(() => {
-    setFilters(initialFilters);
-  }, [initialFilters]);
-
   const filteredCars = useMemo(() => {
+    if (filters.length === initialFilters.length || !filters.length) {
+      return cars;
+    }
     return cars.filter(item => filters.includes(item.bodyType));
-  }, [cars, filters]);
+  }, [cars, filters, initialFilters]);
 
   return (
     <View
